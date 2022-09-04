@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+mysql:
+  port: ENC(S1+sH/XEmRqlO+vEZWbCIqmM8sDKCAnp)
+#資料庫配置 thymeleaf模板配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${mysql.port}:3306/demo?serverTimezone=Asia/Taipei
+    username: ENC(hezMAHFOdLujzemyVXyi5g==)
+    password: ENC(+SdNAYoDYVqzjqG9xdfb6A==)
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    mode: LEGACYHTML5
+    content-type: text/html
+  web:
+    resources:
+      static-locations: classpath:/static/,file:${photo.file.dir} #設定哪些資源可以通過專案名訪問
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 10MB
+      max-file-size: 10MB
+#mybatisplus配置
+mybatis-plus:
+  global-config:
+    db-config:
+      table-prefix: demo_
+      id-type: auto
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: false
+
+#日誌配置
+logging:
+  level:
+    root: info
+    com.demo: debug
+
+#指定文件位置
+photo:
+  file:
+    dir: C:\Users\ricky\Desktop\Demo\photos
+
+#指定jasypt加密算法 填入VM option jasypt:-Djasypt.encryptor.password=設定的密碼
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES

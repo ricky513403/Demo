@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>emplist</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="top_content"> 
+				<div id="header">
+					<div id="rightheader">
+						<p>
+							[[${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')}]]
+							<br />
+							<a th:if="${session.user!=null}" th:href="@{/user/logout}">安全登出</a>
+							<a th:if="${session.user==null}" th:href="@{/login}">點我登錄</a>
+						</p>
+					</div>
+					<div id="topheader">
+						<h1 id="title">
+							<a href="#">後台管理系統</a>
+						</h1>
+					</div>
+					<div id="navigation">
+					</div>
+				</div>
+				<div id="content">
+					<p id="whereami">
+					</p>
+					<h1>
+						<span th:if="${session.user!=null}" th:text="${session.user.username}+'你好'" ></span>
+							<span th:if="${session.user==null}">您好，請點選右上角進行登錄</span>
+					</h1>
+					<table th:if="${session.user!=null}" class="table">
+						<tr class="table_header">
+							<td>
+								編號
+							</td>
+							<td>
+								姓名
+							</td>
+							<td>
+								頭貼
+							</td>
+							<td>
+								薪水
+							</td>
+							<td>
+								生日
+							</td>
+							<td>
+								操作
+							</td>
+						</tr>
+						<tr th:if="${session.user!=null}" th:each="employee,state:${employeeList}" th:class="${state.odd?'row1':'row2'}">
+							<td>
+								<span th:text="${employee.id}"></span>
+							</td>
+							<td>
+								<span th:text="${employee.name}"></span>
+							</td>
+							<td>
+								<img th:src="@{/}+${employee.photo}" width="60">
+							</td>
+							<td>
+								<span th:text="${employee.salary}"></span>
+							</td>
+							<td>
+								<span th:text="${#dates.format(employee.birthday,'yyyy/MM/dd')}"></span>
+							</td>
+
+							<td>
+								<a href="javascript:;" th:if="${session.user!=null}" th:onclick="'deleteEmployee('+${employee.id}+')'">刪除</a>&nbsp;
+								<a th:if="${session.user!=null}" th:href="@{/employee/detail(id=${employee.id})}">更新</a>
+
+							</td>
+						</tr>
+						<script>
+							function deleteEmployee(id){
+								if(window.confirm('確定要刪除這條紀錄嗎?')){
+									location.href='[[@{/employee/delete?id=}]]'+id;
+
+								}
+							}
+						</script>
+					</table >
+					<p>
+						<input type="button" th:if="${session.user!=null}" class="button" value="新增" onclick="addEmp()"/>
+						<a id="rightheader" th:if="${session.user!=null}" th:href="@{/employee/exportExcel}">導出員工資料</a>
+						<script>
+							function addEmp(){
+								location.href='[[@{/addEmp}]]';
+							}
+						</script>
+					</p>
+				</div>
+			</div>
+			<div id="footer">
+				<div id="footer_bg">
+				ricky@R&P.com
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
