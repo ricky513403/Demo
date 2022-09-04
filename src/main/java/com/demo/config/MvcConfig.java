@@ -24,13 +24,16 @@ public class MvcConfig implements WebMvcConfigurer {
 
         registry.addViewController("/UnknownException").setViewName("Exception/UnknownException");
 
+        registry.addViewController("/UserNameBeRegisteredException").setViewName("Exception/UserNameBeRegisteredException");
+
+        registry.addViewController("/VerifyCodeNotCorrectException").setViewName("Exception/VerifyCodeNotCorrectException");
     }
 
     //攔截未登入的請求
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginInterceptor())
-                .excludePathPatterns("/login","/register","/user/**","/static/**","/Exception/**")
+                .excludePathPatterns("/login","/register","/user/**","/static/**","/**Exception","/css/**")
                 .addPathPatterns("/**");
 
     }

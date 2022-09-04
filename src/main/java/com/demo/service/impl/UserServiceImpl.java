@@ -7,6 +7,7 @@ import com.demo.dao.UserDao;
 import com.demo.doamin.User;
 import com.demo.service.UserService;
 import com.demo.utils.exception.PassWordNotCorrectException;
+import com.demo.utils.exception.UserNameBeRegisteredException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         String passwordMD5 = DigestUtils.md5DigestAsHex(password.getBytes(StandardCharsets.UTF_8));
         if(!user.getPassword().equals(passwordMD5)) {
             log.debug("帳號:"+username+" 密碼輸入錯誤");
-            throw new PassWordNotCorrectException();
+            throw new PassWordNotCorrectException("密碼輸入錯誤");
         }
         return user;
     }
@@ -44,7 +45,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         QueryWrapper queryWrapper =new QueryWrapper();
         queryWrapper.eq("username",user.getUsername());
 
-        if(this.getBaseMapper().selectCount(queryWrapper)>0) throw new RuntimeException("當前用戶名已被註冊");
+        if(this.getBaseMapper().selectCount(queryWrapper)>0) throw new UserNameBeRegisteredException("當前用戶名已被註冊");
         //進行MD5加密
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes(StandardCharsets.UTF_8)));
         this.saveUser(user);

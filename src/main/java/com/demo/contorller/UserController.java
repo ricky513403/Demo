@@ -5,6 +5,8 @@ import com.demo.doamin.User;
 import com.demo.service.UserService;
 import com.demo.utils.VerifyCodeUtils;
 import com.demo.utils.exception.PassWordNotCorrectException;
+import com.demo.utils.exception.UserNameBeRegisteredException;
+import com.demo.utils.exception.VerifyCodeNotCorrectException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,11 +86,16 @@ public class UserController {
         //判斷輸入驗證碼  與存在session中的驗證碼是否一致
         try {
             String sessionCode = session.getAttribute("code").toString();
-            if (!sessionCode.equalsIgnoreCase(code)) throw new RuntimeException("驗證碼輸入錯誤!");
+            if (!sessionCode.equalsIgnoreCase(code)){
+                throw new VerifyCodeNotCorrectException("驗證碼輸入錯誤!");
+            }
             userService.register(user);
-        } catch (RuntimeException e) {
+        } catch (UserNameBeRegisteredException e) {
             e.printStackTrace();
-            return "redirect:/register"; //註冊失敗 回到註冊頁面
+            return "redirect:/UserNameBeRegisteredException"; //註冊失敗 回到註冊頁面
+        }catch (VerifyCodeNotCorrectException e1){
+            e1.printStackTrace();
+            return "redirect:/VerifyCodeNotCorrectException";
         }
 
         return "redirect:/login"; //註冊成功 跳到登錄頁面
