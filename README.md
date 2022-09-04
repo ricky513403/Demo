@@ -11,19 +11,13 @@
 
 3.使用Thymeleaf模擬前端回傳資料
 
-4.使用VerifyCodeUtils 完成圖形碼驗證碼功能
+4.調用API功能如:VerifyCodeUtils 完成圖形碼驗證碼功能,Jayspt對重要資訊進行加密,DigestUtils完成MD5加密
 
-5.使用Jayspt對重要資訊進行加密
+5.配置Cors同源跨域資源共享
 
-6.使用攔截器對未登入帳號的頁面跳轉進行過濾
+6.使用MyBatisPlus對資料庫進行增刪改查操作
 
-7.對用戶密碼進行MD5加密功能
-
-8.配置Cors同源跨域資源共享
-
-9.使用MyBatisPlus對資料庫進行增刪改查操作
-
-10.撰寫Test類進行單元測試
+7.撰寫Test類進行單元測試
 
 功能介紹:
 
