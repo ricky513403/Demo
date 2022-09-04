@@ -1,9 +1,9 @@
 # Web Management System
+****
 簡易後台員工管理系統
-
+****
 基於SpringBoot及MyBatisPlus框架完成的簡易後台員工管理系統
-
-
+****
 技術使用:
 
 1.配置專案開發所需Maven文件
@@ -47,5 +47,6 @@
 ![導出員工資料表](https://user-images.githubusercontent.com/111175201/188305468-89352604-0757-41f2-97f6-5d99341553f1.gif)
 
 8.安全登出後會自動清除Session內的資訊，攔截未登入帳號的Session請求
-![導出員工資料表](https://user-images.githubusercontent.com/111175201/188305626-bc255156-ebe6-4cb0-9dc7-835b911059d4.gif)
+![安全登出](https://user-images.githubusercontent.com/111175201/188305733-99e3044f-4df1-4c7c-8ff1-c3d6e3b13350.gif)
+
 
